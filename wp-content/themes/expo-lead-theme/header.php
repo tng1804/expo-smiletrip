@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php wp_body_open(); ?>
 
   <!-- HEADER -->
-  <header class="header">
-    <div class="container nav">
+  <header class="header container">
+    <div class="nav">
       <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="SmileTrip - Trang chủ">
-        <img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/smiletrip-logo-new.png' ) ); ?>" alt="SmileTrip - Smile trip, Smile life">
+        <img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/smiletrip-logo.png' ) ); ?>" alt="SmileTrip - Smile trip, Smile life">
       </a>
 
       <nav class="menu">

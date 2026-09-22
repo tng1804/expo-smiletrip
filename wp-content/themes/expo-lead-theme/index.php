@@ -3,27 +3,28 @@ get_header();
 $status = isset( $_GET['expo_status'] ) ? sanitize_key( wp_unslash( $_GET['expo_status'] ) ) : '';
 ?>
   <!-- HERO -->
-  <section class="hero">
-    <img class="sakura-tl" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/sakura-top-left.png' ) ); ?>" alt="" aria-hidden="true">
-
+  <section class="hero" style="background-image: url('<?php echo esc_url( get_theme_file_uri( 'assets/images/expo-smiletrip-hero.png' ) ); ?>')">
     <div class="container hero-content">
       <div class="hero-copy">
         <div class="eyebrow">EXPO SMILETRIP</div>
         <h1>
           Liên hệ với chúng tôi<br>
           <span class="highlight-orange">
-            Để hành trình của bạn trọn vẹn hơn
-            <svg class="title-plane-svg" viewBox="0 0 90 35" fill="none">
-              <path d="M5 28 Q 45 5, 80 18" stroke="#f55223" stroke-width="2" stroke-dasharray="4 4"/>
-              <path d="M78 12 L87 18 L77 24 Z" fill="#f55223"/>
-            </svg>
+            Để hành trình của bạn<br>
+            <span class="line-plane-wrap">
+              trọn vẹn hơn
+              <svg class="title-plane-svg" viewBox="0 0 90 35" fill="none">
+                <path d="M5 28 Q 45 5, 80 18" stroke="#f55223" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M78 12 L87 18 L77 24 Z" fill="#f55223"/>
+              </svg>
+            </span>
           </span>
         </h1>
         <p class="hero-description">
           Hãy chia sẻ nhu cầu của bạn, đội ngũ Expo SmileTrip sẵn sàng lắng nghe và tư vấn, mang đến những giải pháp du lịch phù hợp nhất.
         </p>
 
-        <!-- 3 Feature Pills -->
+        <!-- 3 Feature Badges -->
         <div class="hero-features">
           <div class="feature-item">
             <div class="feature-icon feature-icon--orange">
@@ -56,14 +57,12 @@ $status = isset( $_GET['expo_status'] ) ? sanitize_key( wp_unslash( $_GET['expo_
           </div>
         </div>
       </div>
-
-      <div class="hero-photo" aria-label="Tourism Expo Japan 2026">
-        <img class="hero-japan-img" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/japan-expo-hero.png' ) ); ?>" alt="Tourism Expo Japan 2026 - Tokyo, Japan">
-      </div>
+      <!-- Right side is rendered by the banner background image -->
+      <div class="hero-banner-spacer" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT SECTION -->
   <main class="contact" id="lien-he">
     <div class="container contact-grid">
 
@@ -248,9 +247,8 @@ $status = isset( $_GET['expo_status'] ) ? sanitize_key( wp_unslash( $_GET['expo_
 
     </div>
 
-    <!-- Japanese Ocean Wave Decorative Overlays -->
-    <img class="wave-bg-left" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/wave-left.png' ) ); ?>" alt="" aria-hidden="true">
-    <img class="wave-bg-right" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/wave-right.png' ) ); ?>" alt="" aria-hidden="true">
+    <!-- Full-bleed Bottom Wave Banner -->
+    <!-- <div class="ocean-wave-banner" style="background-image: url('<?php //echo esc_url( get_theme_file_uri( 'assets/images/smilestrip-bottom-hero.png' ) ); ?>');"></div> -->
   </main>
 
   <script>
