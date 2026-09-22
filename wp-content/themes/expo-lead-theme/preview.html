@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ | Expo SmileTrip</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #102d3d;
+      --text: #4f5d63;
+      --orange: #df572b;
+      --orange-dark: #c94720;
+      --cream: #f7f3eb;
+      --cream-2: #fbfaf6;
+      --sage: #dfe7df;
+      --line: #e6e2da;
+      --white: #fff;
+      --shadow: 0 20px 55px rgba(24, 45, 53, .10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--cream-2);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ================= HEADER ================= */
+    .header {
+      height: 78px;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid rgba(16,45,61,.06);
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      color: var(--navy);
+      line-height: .85;
+      font-weight: 700;
+      letter-spacing: -1px;
+      font-size: 26px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo small {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 5px;
+    }
+
+    .logo span {
+      color: var(--orange);
+      display: inline-block;
+      transform: translateY(-1px);
+    }
+
+    .logo:after {
+      content: "⌣";
+      position: absolute;
+      left: 62px;
+      bottom: -13px;
+      color: var(--orange);
+      font-size: 28px;
+      transform: rotate(-8deg);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      margin-left: auto;
+    }
+
+    .menu a {
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 500;
+      position: relative;
+      padding: 27px 0;
+    }
+
+    .menu a.active {
+      font-weight: 700;
+    }
+
+    .menu a.active:after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      border-radius: 5px;
+      background: var(--orange);
+      left: 0;
+      right: 0;
+      bottom: 16px;
+    }
+
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--orange);
+      color: #fff;
+      padding: 13px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 20px rgba(223,87,43,.20);
+      transition: .2s ease;
+    }
+
+    .header-btn:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 370px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 73% 15%, rgba(218,231,228,.9), transparent 34%),
+        linear-gradient(105deg, #fbf6ee 0%, #f4f0e7 48%, #e1ebe5 100%);
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      right: -130px;
+      top: -240px;
+      background: rgba(255,255,255,.36);
+    }
+
+    .hero-content {
+      min-height: 370px;
+      display: grid;
+      grid-template-columns: 51% 49%;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-copy {
+      padding: 55px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      color: var(--navy);
+      font-size: clamp(42px, 5vw, 66px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    .hero h1 em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .hero-description {
+      max-width: 570px;
+      margin: 20px 0 0;
+      font-size: 16px;
+      color: #58676c;
+    }
+
+    .hero-photo {
+      height: 310px;
+      margin-top: 30px;
+      border-radius: 190px 0 0 0;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(8,40,53,.03), rgba(8,40,53,.28)),
+        url("https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85")
+        center / cover no-repeat;
+      box-shadow: -25px 25px 60px rgba(35,58,58,.12);
+    }
+
+    .hero-photo:after {
+      content: "More\A Smiles\A More Journeys";
+      white-space: pre;
+      position: absolute;
+      right: 42px;
+      top: 38px;
+      color: #173b3e;
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 25px;
+      line-height: 1.05;
+      transform: rotate(-5deg);
+      text-align: center;
+    }
+
+    .hero-photo:before {
+      content: "↗";
+      position: absolute;
+      right: 73px;
+      top: 125px;
+      color: var(--orange);
+      font-size: 32px;
+      transform: rotate(20deg);
+      z-index: 1;
+    }
+
+    /* ================= CONTACT ================= */
+    .contact {
+      position: relative;
+      padding: 75px 0 100px;
+      overflow: hidden;
+      background: var(--cream-2);
+    }
+
+    .contact:after {
+      content: "";
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: -110px;
+      height: 180px;
+      background: #e4e9df;
+      border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+      opacity: .7;
+      z-index: 0;
+    }
+
+    .contact-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 65px;
+      align-items: start;
+    }
+
+    .contact-info {
+      padding-top: 7px;
+    }
+
+    .section-label {
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .contact-info h2 {
+      font-family: "Playfair Display", serif;
+      color: var(--navy);
+      font-size: 40px;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin: 12px 0 17px;
+    }
+
+    .contact-info > p {
+      font-size: 15px;
+      color: #69767a;
+      max-width: 460px;
+      margin-bottom: 30px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 17px;
+      margin: 20px 0;
+    }
+
+    .contact-icon {
+      flex: 0 0 51px;
+      width: 51px;
+      height: 51px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #f8ded2;
+      color: var(--orange);
+      font-size: 20px;
+    }
+
+    .contact-item:nth-of-type(2) .contact-icon {
+      background: #e1e9df;
+      color: #456256;
+    }
+
+    .contact-item:nth-of-type(3) .contact-icon {
+      background: #f8e2d8;
+      color: var(--orange);
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--navy);
+      font-size: 14px;
+      margin: 1px 0 2px;
+    }
+
+    .contact-item div:last-child {
+      font-size: 14px;
+    }
+
+    .contact-item .value {
+      color: #53646a;
+    }
+
+    .social {
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      padding-top: 24px;
+    }
+
+    .social-title {
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-links a {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .social-links a:hover {
+      background: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    /* ================= FORM ================= */
+    .form-card {
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(16,45,61,.07);
+      border-radius: var(--radius);
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-heading {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .form-heading-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #f9e1d6;
+      color: var(--orange);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      flex: 0 0 52px;
+    }
+
+    .form-heading h3 {
+      margin: 0;
+      color: var(--navy);
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .form-heading p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #7b8588;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .required { color: var(--orange); }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid #dfe3e2;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--navy);
+      padding: 13px 14px;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: .2s;
+    }
+
+    .field input,
+    .field select { height: 47px; }
+
+    .field textarea {
+      min-height: 125px;
+      resize: vertical;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #a7afb1;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(223,87,43,.09);
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      height: 51px;
+      border-radius: 9px;
+      color: #fff;
+      background: linear-gradient(135deg, #e66131, #d94f24);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      box-shadow: 0 10px 22px rgba(223,87,43,.18);
+      transition: .2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 13px 26px rgba(223,87,43,.25);
+    }
+
+    .privacy {
+      text-align: center;
+      font-size: 11px;
+      color: #8c9698;
+      margin: 15px 0 0;
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--line);
+      background: #faf9f5;
+      padding: 20px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 12px;
+      color: #768184;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .menu { gap: 18px; }
+      .header-btn { display: none; }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding: 55px 0 25px;
+      }
+
+      .hero-photo {
+        margin: 10px 0 0;
+        height: 280px;
+        border-radius: 140px 0 0 0;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .contact-info h2 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .header {
+        height: 70px;
+      }
+
+      .menu {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-copy {
+        padding: 48px 0 25px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+        letter-spacing: -1px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-photo {
+        height: 235px;
+        border-radius: 100px 0 0 0;
+      }
+
+      .hero-photo:after {
+        right: 25px;
+        top: 25px;
+        font-size: 19px;
+      }
+
+      .hero-photo:before {
+        right: 45px;
+        top: 92px;
+      }
+
+      .contact {
+        padding: 55px 0 75px;
+      }
+
+      .contact-info h2 {
+        font-size: 33px;
+      }
+
+      .form-card {
+        padding: 22px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#">
+        <small>EXPO</small>
+        Smile<span>Trip</span>
+      </a>
+
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="#">Về chúng tôi</a>
+        <a href="#">Dịch vụ</a>
+        <a class="active" href="#lien-he">Liên hệ</a>
+      </nav>
+
+      <a class="header-btn" href="#lien-he">✈ &nbsp; Khám phá ngay</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-copy">
+        <div class="eyebrow">EXPO SMILETRIP</div>
+        <h1>
+          Liên hệ với chúng tôi<br>
+          <em>Để hành trình của bạn trọn vẹn hơn</em>
+        </h1>
+        <p class="hero-description">
+          Hãy chia sẻ nhu cầu của bạn, đội ngũ Expo SmileTrip sẵn sàng
+          lắng nghe và tư vấn giải pháp phù hợp nhất.
+        </p>
+      </div>
+
+      <div class="hero-photo" aria-label="Khung cảnh du lịch"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <main class="contact" id="lien-he">
+    <div class="container contact-grid">
+
+      <!-- CONTACT INFO -->
+      <section class="contact-info">
+        <div class="section-label">THÔNG TIN LIÊN HỆ</div>
+
+        <h2>Chúng tôi luôn sẵn sàng<br>hỗ trợ bạn</h2>
+
+        <p>
+          Dù bạn có câu hỏi, cần tư vấn tour hay hợp tác cùng chúng tôi,
+          đừng ngần ngại liên hệ. Expo SmileTrip sẽ phản hồi trong
+          thời gian sớm nhất.
+        </p>
+
+        <div class="contact-item">
+          <div class="contact-icon">☎</div>
+          <div>
+            <strong>Hotline</strong>
+            <div class="value"><b>+84 24 1234 5678</b></div>
+            <div class="value">08:00 – 18:00, Thứ 2 – Thứ 7</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <strong>Email</strong>
+            <div class="value"><b>info@smiletrip.vn</b></div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">⌖</div>
+          <div>
+            <strong>Địa chỉ</strong>
+            <div class="value">
+              Số 123 Đường Du Lịch, Quận Hoàn Kiếm,<br>
+              Hà Nội, Việt Nam
+            </div>
+          </div>
+        </div>
+
+        <div class="social">
+          <div class="social-title">Kết nối với chúng tôi</div>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="YouTube">▶</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM -->
+      <section class="form-card">
+        <div class="form-heading">
+          <div class="form-heading-icon">✉</div>
+          <div>
+            <h3>Gửi cho chúng tôi tin nhắn</h3>
+            <p>Vui lòng điền đầy đủ thông tin, chúng tôi sẽ liên hệ lại sớm nhất.</p>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Họ và tên <span class="required">*</span></label>
+              <input id="name" type="text" placeholder="Nhập họ và tên của bạn" required>
+            </div>
+
+            <div class="field">
+              <label for="email">Email <span class="required">*</span></label>
+              <input id="email" type="email" placeholder="Nhập địa chỉ email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Số điện thoại <span class="required">*</span></label>
+              <input id="phone" type="tel" placeholder="Nhập số điện thoại" required>
+            </div>
+
+            <div class="field">
+              <label for="service">Dịch vụ quan tâm</label>
+              <select id="service">
+                <option value="">Chọn dịch vụ</option>
+                <option>Tour du lịch</option>
+                <option>Vé máy bay</option>
+                <option>Khách sạn & lưu trú</option>
+                <option>Combo du lịch</option>
+                <option>Đối tác / Hợp tác kinh doanh</option>
+                <option>Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">Nội dung tin nhắn <span class="required">*</span></label>
+            <textarea id="message" maxlength="500" placeholder="Bạn muốn chia sẻ điều gì?" required></textarea>
+          </div>
+
+          <button class="submit-btn" type="submit">✈ &nbsp; GỬI TIN NHẮN</button>
+
+          <p class="privacy">
+            🔒 &nbsp; Thông tin của bạn được bảo mật và chỉ sử dụng để liên hệ.
+          </p>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Expo SmileTrip. All rights reserved.</div>
+
+      <div class="footer-links">
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản sử dụng</a>
+        <a href="#lien-he">Liên hệ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Cảm ơn bạn! Thông tin đã được ghi nhận.");
+    });
+  </script>
+
+</body>
+</html>
