@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once get_template_directory() . '/settings/languages.php';
 require_once get_template_directory() . '/settings/setting-product-inquiry.php';
 require_once get_template_directory() . '/settings/email-notification.php';
 require_once get_template_directory() . '/settings/ajax-product-inquiry.php';
@@ -18,10 +19,11 @@ function expo_lead_setup() {
 add_action( 'after_setup_theme', 'expo_lead_setup' );
 
 function expo_lead_assets() {
-    wp_enqueue_style( 'expo-lead-style', get_stylesheet_uri(), array(), '2.1.0' );
+    wp_enqueue_style( 'expo-lead-style', get_stylesheet_uri(), array(), '2.3.6' );
     wp_register_script( 'expo-lead-script', false, array(), '2.1.0', true );
     wp_enqueue_script( 'expo-lead-script' );
     wp_add_inline_script( 'expo-lead-script', 'window.expo_ajax = ' . wp_json_encode( array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) ) . ';', 'before' );
+    wp_add_inline_script( 'expo-lead-script', 'window.expo_i18n = ' . wp_json_encode( expo_get_js_translations() ) . ';', 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'expo_lead_assets' );
 
@@ -78,6 +80,12 @@ function expo_lead_handle_submission() {
         exit;
     }
 
+    $lang      = isset( $_POST['expo_lang'] ) ? sanitize_key( wp_unslash( $_POST['expo_lang'] ) ) : 'en';
+    $supported = function_exists( 'expo_supported_languages' ) ? expo_supported_languages() : array( 'en' => true );
+    if ( ! isset( $supported[ $lang ] ) ) {
+        $lang = 'en';
+    }
+
     if ( ! empty( $_POST['website'] ) ) {
         wp_safe_redirect( add_query_arg( 'expo_status', 'success', home_url( '/' ) ) . '#expo-contact' );
         exit;
@@ -115,6 +123,7 @@ function expo_lead_handle_submission() {
         'phone' => $phone,
         'service' => $service,
         'message' => $message,
+        'lang' => $lang,
     );
 
     if ( function_exists( 'update_field' ) ) {

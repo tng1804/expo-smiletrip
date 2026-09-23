@@ -210,7 +210,7 @@ function expo_lead_register_email_settings() {
                     <h4 style="color: #df572b; margin: 0 0 8px; font-size: 14px; font-weight: bold;">📢 Thông tin phản hồi:</h4>
                     <p style="color: #5c453e; font-size: 13px; line-height: 1.6; margin: 0;">
                         • Đội ngũ tư vấn viên của Expo SmileTrip sẽ trực tiếp xem xét và liên hệ phản hồi cho bạn qua điện thoại hoặc email trong vòng <strong>24 giờ làm việc</strong>.<br>
-                        • Nếu cần hỗ trợ khẩn cấp, vui lòng gọi Hotline: <strong>+84 24 1234 5678</strong>.
+                        • Nếu cần hỗ trợ khẩn cấp, vui lòng gọi Hotline: <strong>(+84) 934 592 320</strong>.
                     </p>
                 </td>
             </tr>
@@ -228,11 +228,49 @@ function expo_lead_register_email_settings() {
     </table>
 </div>';
 
+    $localized_email_fields = array();
+    $localized_languages    = array(
+        'en' => 'English',
+        'vi' => 'Tiếng Việt',
+        'ja' => '日本語',
+    );
+    foreach ( $localized_languages as $language_code => $language_label ) {
+        $localized_email_fields[] = array(
+            'key'          => 'field_expo_lead_email_admin_subject_' . $language_code,
+            'label'        => sprintf( __( 'Admin subject (%s)', 'expo-lead' ), $language_label ),
+            'name'         => 'expo_lead_email_admin_subject_' . $language_code,
+            'type'         => 'text',
+            'instructions' => __( 'Available tags: [name], [email], [phone], [service], [message]', 'expo-lead' ),
+        );
+        $localized_email_fields[] = array(
+            'key'          => 'field_expo_lead_email_admin_body_' . $language_code,
+            'label'        => sprintf( __( 'Admin message (%s)', 'expo-lead' ), $language_label ),
+            'name'         => 'expo_lead_email_admin_body_' . $language_code,
+            'type'         => 'wysiwyg',
+            'instructions' => __( 'Available tags: [name], [email], [phone], [service], [message]', 'expo-lead' ),
+        );
+        $localized_email_fields[] = array(
+            'key'          => 'field_expo_lead_email_customer_subject_' . $language_code,
+            'label'        => sprintf( __( 'Customer subject (%s)', 'expo-lead' ), $language_label ),
+            'name'         => 'expo_lead_email_customer_subject_' . $language_code,
+            'type'         => 'text',
+            'instructions' => __( 'Available tags: [name], [email], [phone], [service], [message]', 'expo-lead' ),
+        );
+        $localized_email_fields[] = array(
+            'key'          => 'field_expo_lead_email_customer_body_' . $language_code,
+            'label'        => sprintf( __( 'Customer message (%s)', 'expo-lead' ), $language_label ),
+            'name'         => 'expo_lead_email_customer_body_' . $language_code,
+            'type'         => 'wysiwyg',
+            'instructions' => __( 'Available tags: [name], [email], [phone], [service], [message]', 'expo-lead' ),
+        );
+    }
+
 	acf_add_local_field_group(
 		array(
 			'key'    => 'group_expo_lead_email_settings',
 			'title'  => __( 'Lead email templates', 'expo-lead' ),
-			'fields' => array(
+            'fields' => array_merge(
+                array(
 				array(
 					'key'          => 'field_expo_lead_email_receivers',
 					'label'        => __( 'Notification recipients', 'expo-lead' ),
@@ -279,7 +317,9 @@ function expo_lead_register_email_settings() {
 					'instructions'  => __( 'Available tags: [name], [email], [phone], [service], [message]', 'expo-lead' ),
 					'default_value' => $default_customer_body,
 				),
-			),
+                ),
+                $localized_email_fields
+            ),
 			'location' => array(
 				array(
 					array(
